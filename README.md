@@ -8,7 +8,8 @@ For a comprehensive understanding of Diffusion Probabilistic Models (DDPMs), I'v
 - The theoretical foundations of diffusion models
 - Step-by-step explanation of the forward and reverse processes
 - Mathematical intuition behind the noise prediction and derivation
-Read full article here: [Understanding Diffusion Probabilistic Models](https://medium.com/@hemanthsbanur/diffusion-probabilistic-models-from-ink-drops-to-ai-c337750b317e)
+
+👉Read full article here: [Understanding Diffusion Probabilistic Models](https://medium.com/@hemanthsbanur/diffusion-probabilistic-models-from-ink-drops-to-ai-c337750b317e)
 
 
 ## Setup and Installation
