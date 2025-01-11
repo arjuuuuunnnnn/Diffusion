@@ -26,12 +26,8 @@ def setup_logging(save_dir):
     )
 
 def get_dataset(config):
-    transform = get_transforms(config['data']['image_size'])
-    
-    if config['data']['dataset_type'].lower() == 'cifar10':
-        dataset = CIFAR10(root='./data', train=True, download=True, transform=transform)
-    else:
-        dataset = ImageFolder(root=config['data']['dataset_path'], transform=transform)
+    transform = get_transforms(config['data']['image_size']) 
+    dataset = ImageFolder(root=config['data']['dataset_path'], transform=transform)
     
     return dataset
 
