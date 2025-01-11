@@ -49,28 +49,23 @@ def train_step(batch, t, model, diffusion, optimizer, device):
     
     return loss.item()
 
-def main():
-    # Load configuration
+def main():  
     config = load_config('config.yaml')
     
-    # Setup device
     device = torch.device(config['training']['device'])
     
-    # Create save directory
     save_dir = Path(config['training']['save_dir'])
     save_dir.mkdir(parents=True, exist_ok=True)
     
-    # Setup logging
     setup_logging(save_dir)
     
-    # Initialize models
+    #init models
     unet = UNet(config).to(device)
     diffusion = DiffusionModel(config)
     
-    # Setup optimizer
     optimizer = torch.optim.Adam(unet.parameters(), lr=config['training']['learning_rate'])
     
-    # Load dataset
+    # dataset
     dataset = get_dataset(config)
     dataloader = DataLoader(
         dataset,
@@ -79,7 +74,7 @@ def main():
         num_workers=config['data']['num_workers']
     )
     
-    # Training loop
+    # Training
     for epoch in range(config['training']['epochs']):
         mean_epoch_loss = []
         
@@ -92,7 +87,7 @@ def main():
             avg_loss = sum(mean_epoch_loss) / len(mean_epoch_loss)
             logging.info(f"Epoch: {epoch} | Train Loss: {avg_loss:.6f}")
             
-            # Save checkpoint
+            # Save ckpt
             checkpoint = {
                 'epoch': epoch,
                 'model_state_dict': unet.state_dict(),
@@ -101,7 +96,6 @@ def main():
             }
             torch.save(checkpoint, save_dir / f'checkpoint_epoch_{epoch}.pt')
             
-            # Generate sample
             with torch.no_grad():
                 img = torch.randn((1, 3) + tuple(config['data']['image_size'])).to(device)
                 for i in reversed(range(diffusion.timesteps)):
